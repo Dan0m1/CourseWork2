@@ -7,7 +7,7 @@ interface AppContainer {
 }
 
 class DefaultAppContainer: AppContainer {
-    private val apiService = NetworkModule.apiService
+    private val apiService = NetworkModule.provideApiService()
 
     override val loginRepository: LoginRepository by lazy {
         NetworkLoginRepository(apiService)

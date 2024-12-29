@@ -43,23 +43,32 @@ class GoogleSignInUtils {
                         is CustomCredential -> {
                             if (result.credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
                                 val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(result.credential.data)
+                                Log.e("GoogleSignIn", "Token: ${googleIdTokenCredential.idToken}")
                                 login(googleIdTokenCredential.idToken)
                             }
                         }
-                        else -> {}
+                        else -> {
+                            Log.e("GoogleSignIn", "Unexpected credential type: ${result.credential::class.java.name}")
+                        }
                     }
                 } catch (e: NoCredentialException) {
+                    Log.e("GoogleSignIn", "No credentials found: ${e.message}")
                     launcher?.launch(getIntent())
                 } catch (e: GetCredentialException) {
+                    Log.e("GoogleSignIn", "GetCredentialException: ${e.message}")
+                    e.printStackTrace()
+                } catch (e: Exception) {
+                    Log.e("GoogleSignIn", "Unexpected error: ${e.message}")
                     e.printStackTrace()
                 }
             }
         }
 
         fun getCredentialOptions(context: Context): CredentialOption {
+            Log.e("GoogleSignIn", "web_client_id: ${context.getString(R.string.web_client_id)}")
             return GetGoogleIdOption.Builder()
-                .setFilterByAuthorizedAccounts(false)
-                .setAutoSelectEnabled(false)
+                .setFilterByAuthorizedAccounts(true)
+                .setAutoSelectEnabled(true)
                 .setServerClientId(context.getString(R.string.web_client_id))
                 .build()
         }

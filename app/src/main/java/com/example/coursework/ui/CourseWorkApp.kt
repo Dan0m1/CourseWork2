@@ -5,20 +5,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.coursework.ui.screens.LoginViewModel
+import com.example.coursework.ui.screens.login.LoginViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.coursework.ui.screens.LoginScreen
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.coursework.ui.navigation.CourseWorkNavGraph
+import com.example.coursework.ui.screens.login.LoginScreen
 
 @Composable
-fun CourseWorkApp(modifier: Modifier = Modifier) {
+fun CourseWorkApp(modifier:Modifier = Modifier, navController: NavHostController = rememberNavController()) {
     Surface(
         color = MaterialTheme.colorScheme.surface,
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
-        val loginViewModel: LoginViewModel = viewModel(factory = LoginViewModel.Factory)
-        LoginScreen(
-            viewModel = loginViewModel,
-            modifier = modifier
-        )
+        CourseWorkNavGraph(navHostController = navController, Modifier.fillMaxSize())
     }
 }

@@ -10,9 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.compose.CourseWorkTheme
 import com.example.coursework.ui.CourseWorkApp
-import com.example.coursework.ui.screens.LoginScreen
-import com.example.coursework.ui.screens.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
